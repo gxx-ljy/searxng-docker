@@ -46,18 +46,16 @@ services:
 
   searxng:
     container_name: searxng
-    image: docker.io/searxng/searxng:latest
+    image: docker.io/searxng/searxng::2025.2.20-28d1240fc
     restart: unless-stopped
     networks:
       - searxng
     ports:
-      - "127.0.0.1:8080:8080"
+      - "8080:8080"
     volumes:
       - ./searxng:/etc/searxng:rw
     environment:
       - SEARXNG_BASE_URL=https://${SEARXNG_HOSTNAME:-localhost}/
-      - UWSGI_WORKERS=${SEARXNG_UWSGI_WORKERS:-4}
-      - UWSGI_THREADS=${SEARXNG_UWSGI_THREADS:-4}
     cap_drop:
       - ALL
     cap_add:
